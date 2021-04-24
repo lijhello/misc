@@ -1,26 +1,66 @@
-C++_In_a_Nutshell
+"C++ In a Nutshell"
 
 2
+
+[Declarations]
 
 A C++ source file contains a series of zero or more declarations. A declaration can
 be a function, type, object (constant or variable), namespace, template, or a
 related entity.
+
+[Ambiguity]
 
 Some language constructs can look like a declaration or an expression. Such ambiguities
 are always resolved in favor of declarations. A related rule is that a
 declaration that is a type specifier followed by a name and empty parentheses is a
 declaration of a function that takes no arguments, not a declaration of an object
 with an empty initializer.
+
     T(a); // Variable named a of type T, not an invocation of the T(int) constructor
-    
+
     T b( ); // Function named b of no arguments, not a variable named b of type T
 
     T c(T(x)); // Declaration of a function named c, with one argument of type T
-                // .. with a redundant set of parentheses around the parameter name.
+
+.. with a redundant set of parentheses around the parameter name.
+
+If your intention is to declare an object, not a function, the simplest way to do this
+is not to use the function-call style of type cast.
 
 You can force the compiler to interpret the declaration as an object definition by enclosing
 one or more arguments in parentheses:
+
     T c(  T(x)  );
     T d( (T(x)) );
 
+[Scope]
 
+A scope can be named or unnamed.
+
+[Initializers]
+
+The two forms of initializers are assignment-like and function-like. (In the C++
+standard, assignment-like is called copy initialization, and function-like is called
+direct initialization.)
+
+[Assignment-like initializers]
+
+To initialize an aggregate of class type, supply an initial value for each nonstatic
+data member separated by commas and enclosed in curly braces.
+
+If there are fewer values than members, the members without values are initialized
+by calling each member’s default constructor or initializing the members to 0.
+
+An initializer list can be empty, which means all members are initialized to their
+defaults, which is different from omitting the initializer entirely. The latter causes
+all members to be left uninitialized.
+
+[Initializing arrays]
+
+Initialize elements of an array with values separated by commas and enclosed in
+curly braces.
+
+An array initializer can be empty, which forces all elements to be initialized to 0. If
+the initializer is empty, the array size must be specified. Omitting the initializer
+entirely causes all elements of the array to be uninitialized (except non-POD
+types, which are initialized with their default constructors).
