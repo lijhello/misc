@@ -172,3 +172,19 @@ treat as if it were an rvalue.
 
 the call to move promises that we do not intend to use rr1 again except
 to assign to it or to destroy it.
+
+15.3
+
+The conversion from derived to base applies only to pointer or reference types.
+..copying,moving, or assigning a derivedtype
+object to a base-type object copies, moves, or assigns only the members in the
+base-class part of the object.
+
+The key idea behind OOP is polymorphism.
+Whenwe call a function defined in a base class through a reference or pointer to the
+base class, we do not know the type of the object on which that member is executed.
+The object can be a base-class object or an object of a derived class. If the function is
+virtual, then the decision as to which function to run is delayed until run time. The
+version of the virtual function that is run is the one defined by the type of the object
+to which the reference is bound or to which the pointer points.
+
