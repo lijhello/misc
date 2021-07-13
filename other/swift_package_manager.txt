@@ -1,0 +1,107 @@
+// swift package manager 
+
+// https://nativeconnect.app/blog/sharing-modules-using-swift-package-manager/
+
+// https://stackoverflow.com/questions/65339778/swift-package-manager-how-to-add-local-shared-library-as-dependency-to-multiple
+
+// https://github.com/Samasaur1/Solver/blob/main/Package.swift
+
+---
+
+$ mkdir helloSwift
+$ cd helloSwift
+
+$ swift package init  --type executable
+
+# add lib1 under Sources/ as module inside this same package in vscode editor
+
+$ pwd
+/home/ljh/Documents/helloSwift
+
+$ tree -a
+$ tree
+.
+├── Package.swift
+├── README.md
+├── Sources
+│   ├── helloSwift
+│   │   └── main.swift
+│   └── lib1
+│       └── lib1.swift
+└── Tests
+    └── helloSwiftTests
+        └── helloSwiftTests.swift
+
+5 directories, 5 files
+$ 
+$ cat Sources/helloSwift/main.swift 
+import lib1
+
+let a = lib1()
+print(a.text)
+print("helloSwift")
+$ 
+$ cat Sources/lib1/lib1.swift 
+public struct lib1 {
+    public var text = "lib1"
+    public init() {
+    }
+}
+$ 
+$ cat Package.swift 
+// swift-tools-version:5.3
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "helloSwift",
+    products: [
+        .executable(name: "helloSwift", targets: ["helloSwift"]),
+        .library(name: "lib1", targets: ["lib1"]),
+    ],
+    dependencies: [
+
+        // 1. refers to remote package
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
+
+        // 2. refers to other local package
+        // refers to other local packages by relative path
+        // .package(path: "../Hello1"),
+
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages this package depends on.
+
+        // 3. refers to same package, "lib1" in same package, so no need to add record in dependencies above.
+        .target( name: "helloSwift", dependencies: ["lib1"]),
+
+        .target( name: "lib1", dependencies: []),
+        .testTarget( name: "helloSwiftTests", dependencies: ["helloSwift"]),
+    ]
+)
+$ 
+
+----
+
+$ swift package init #default: library
+$ swift package init --type library
+$ swift package init --type executable
+$ swift package clean
+$ swift build
+$ swift run
+$ swift test
+
+----
+
+# build result directory
+
+$ swift build
+Compile Swift Module 'Hello' (1 sources)
+Linking ./.build/x86_64-apple-macosx10.10/debug/Hello
+
+$ .build/x86_64-apple-macosx10.10/debug/Hello
+Hello, world!
+$
