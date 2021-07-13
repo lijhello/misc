@@ -12,23 +12,23 @@
     "editor.fontSize": 14,
     "editor.fontWeight": "bold",
     "editor.hover.enabled": false,
-    // "editor.lineNumbers": "off",
+    // "editor.lineNumbers": "off", //
     "editor.minimap.enabled": false,
     "editor.renderLineHighlight": "all",
     "editor.roundedSelection": false,
-    "editor.rulers": [80],
+    "editor.rulers": [80], //
     // "editor.wordWrap": "wordWrapColumn", //wordwrap
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.openEditors.sortOrder": "alphabetical",
     "extensions.ignoreRecommendations": true,
     "extensions.showRecommendationsOnlyOnDemand": true,
-    "files.autoSave": "afterDelay",
     "files.exclude": {
         "**/CVS": true,
-        "**/._*": true,
+        "**/._.DS_Store": true,
         "**/.DS_Store": true,
         "**/.git": true,
+        "**/.gitignore": true,
         "**/.hg": true,
         "**/.svn": true,
         "**/.vscode": true,
@@ -48,8 +48,8 @@
     "outline.showFields": false,
     "outline.showVariables": false,
     "window.title": "${activeEditorLong}",
-    "window.zoomLevel": 0,
     "workbench.colorTheme": "Default Dark+",
+    "workbench.editor.untitled.hint": "hidden",
     "workbench.settings.editor": "json", //ui, json
     "workbench.settings.useSplitJSON": true,
     "workbench.startupEditor": "newUntitledFile",
